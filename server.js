@@ -20,6 +20,9 @@ const userStatsRoutes = require("./routes/user-stats-route");
 const linksTrackRoutes = require("./routes/link-track");
 const projectTimelineRoutes = require("./routes/projectTimelineRoutes");
 
+const referalCodeRoute = require("./routes/referal-code");
+
+
 
 // DB Connection
 const db = process.env.MONGODB_URI;
@@ -48,6 +51,10 @@ app.use(express.urlencoded({ limit: "50mb" }));
 
 // Routing for API Service
 app.use("/api/v1/main", express.json({ limit: "50mb" }), mainRoutes);
+app.use("/api/v1/main/referal", express.json({ limit: "50mb" }), referalCodeRoute);
+
+
+
 app.use("/api/v1/main/leads", express.json({ limit: "50mb" }), leadsRoutes);
 app.use(
   "/api/v1/main/userstats",
