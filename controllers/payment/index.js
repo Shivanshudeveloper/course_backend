@@ -1,6 +1,10 @@
 const User_Model = require('../../models/User');
 const RegisteredUsers_Model = require('../../models/RegisteredUsers');
 
+const AmbassadorPayout_Model = require('../../models/AmbassadorPayout');
+const Ambassador_model = require("../../models/Ambassador"); // Update the path as needed
+
+
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -126,7 +130,8 @@ const successRazorPay = async (req, res) => {
             phone,
             institutionName,
             packagePlan,
-            course
+            course,
+            ambasadorId
         } = req.body;
 
         
@@ -137,25 +142,74 @@ const successRazorPay = async (req, res) => {
         }
 
         try {
-            const newUser = new RegisteredUsers_Model({
-                fullName,
-                email,
-                phone,
-                institutionName,
-                packagePlan,
-                course,
-                paymentInformation: {
-                    orderCreationId,
-                    razorpayPaymentId,
-                    razorpayOrderId,
-                    razorpaySignature
-                }
-            });
-            const userres = await newUser.save();
 
-            sendEmailResend(fullName, email, packagePlan, userres?._id);
+            if (ambasadorId === "NA") {
+                const newUser = new RegisteredUsers_Model({
+                    fullName,
+                    email,
+                    phone,
+                    institutionName,
+                    packagePlan,
+                    course,
+                    paymentInformation: {
+                        orderCreationId,
+                        razorpayPaymentId,
+                        razorpayOrderId,
+                        razorpaySignature
+                    },
+                    ambasadorId
+                });
+                const userres = await newUser.save();
+                console.log(userres);
+                sendEmailResend(fullName, email, packagePlan, userres?._id);
+                return res.status(200).json({ status: true, msg: 'success', orderId: razorpayOrderId, paymentId: razorpayPaymentId, userId: userres?._id });
+            } else {
+                const ambPayout = await Ambassador_model.findOne({ pubicId: ambasadorId });
 
-            return res.status(200).json({ status: true, msg: 'success', orderId: razorpayOrderId, paymentId: razorpayPaymentId, userId: userres?._id });
+                const newUser = new RegisteredUsers_Model({
+                    fullName,
+                    email,
+                    phone,
+                    institutionName,
+                    packagePlan,
+                    course,
+                    paymentInformation: {
+                        orderCreationId,
+                        razorpayPaymentId,
+                        razorpayOrderId,
+                        razorpaySignature
+                    },
+                    ambasadorId
+                });
+
+                const userres = await newUser.save();
+
+                console.log(userres);
+
+                const newAmbasadorPayout = new AmbassadorPayout_Model({
+                    ambasadorId,
+                    ambasadorPayout: ambPayout?.payout,
+                    fullName,
+                    email,
+                    institutionName,
+                    packagePlan,
+                    course,
+                    paymentInformation: {
+                        orderCreationId,
+                        razorpayPaymentId,
+                        razorpayOrderId,
+                        razorpaySignature
+                    }
+                });
+
+                const ambpayout = await newAmbasadorPayout.save();
+
+                console.log(ambpayout);
+
+                sendEmailResend(fullName, email, packagePlan, userres?._id);
+
+                return res.status(200).json({ status: true, msg: 'success', orderId: razorpayOrderId, paymentId: razorpayPaymentId, userId: userres?._id });
+            }
         } catch (error) {
             res.status(400).send({ error: error.message });
         }

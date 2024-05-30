@@ -29,6 +29,10 @@ const registeredUserSchema = new mongoose.Schema({
     type: Object,
     required: true,
   },
+  ambasadorId: {
+    type: String,
+    required: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

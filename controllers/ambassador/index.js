@@ -2,6 +2,7 @@ const ProjectTimeline_model = require("../../models/projectTimeline"); // Update
 const ReferalCode_model = require("../../models/ReferalCode"); // Update the path as needed
 const AmbassadorCounter_model = require("../../models/AmbassadorCounter"); // Update the path as needed
 const Ambassador_model = require("../../models/Ambassador"); // Update the path as needed
+const AmbassadorPayout_Model = require('../../models/AmbassadorPayout');
 
 
 // Create a new project
@@ -115,10 +116,27 @@ const getAllAmbassador = async (req, res) => {
   }
 };
 
+// Get all projects
+const getAllAmbassadorPayout = async (req, res) => {
+  const { publicId } = req.params; // Use organisationId
+  console.log(publicId);
+  try {
+    const referals = await AmbassadorPayout_Model.find({ ambasadorId: publicId }).sort({ date: -1 });;
+
+    return res.status(200).json({ status: true, data: referals });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ status: false, data: "Error while fetching Referals" });
+  }
+};
+
 module.exports = {
     createAmbassador,
     getReferalCode,
     updateProjectById,
     deleteReferal,
     getAllAmbassador,
+    getAllAmbassadorPayout
 };

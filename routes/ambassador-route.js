@@ -9,6 +9,8 @@ const ambassadorController = require("../controllers/ambassador");
 
 router.get("/getallambassador", ambassadorController.getAllAmbassador);
 
+router.get("/getallambassadorpayout/:publicId", ambassadorController.getAllAmbassadorPayout);
+
 router.get("/getspeceficreferalcode/:code", referalController.getReferalCode);
 
 router.post("/create", ambassadorController.createAmbassador);
