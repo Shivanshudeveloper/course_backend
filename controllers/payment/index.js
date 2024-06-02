@@ -131,7 +131,8 @@ const successRazorPay = async (req, res) => {
             institutionName,
             packagePlan,
             course,
-            ambasadorId
+            ambasadorId,
+            referalCode
         } = req.body;
 
         
@@ -157,7 +158,8 @@ const successRazorPay = async (req, res) => {
                         razorpayOrderId,
                         razorpaySignature
                     },
-                    ambasadorId
+                    ambasadorId,
+                    referalCode
                 });
                 const userres = await newUser.save();
                 console.log(userres);
@@ -179,7 +181,8 @@ const successRazorPay = async (req, res) => {
                         razorpayOrderId,
                         razorpaySignature
                     },
-                    ambasadorId
+                    ambasadorId,
+                    referalCode
                 });
 
                 const userres = await newUser.save();

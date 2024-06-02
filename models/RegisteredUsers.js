@@ -33,6 +33,10 @@ const registeredUserSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  referalCode: {
+    type: String,
+    required: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
