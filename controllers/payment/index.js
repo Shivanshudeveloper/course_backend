@@ -132,7 +132,10 @@ const successRazorPay = async (req, res) => {
             packagePlan,
             course,
             ambasadorId,
-            referalCode
+            referalCode,
+            ccsmode,
+            dsamode,
+            mlmode
         } = req.body;
 
         
@@ -159,7 +162,10 @@ const successRazorPay = async (req, res) => {
                         razorpaySignature
                     },
                     ambasadorId,
-                    referalCode
+                    referalCode,
+                    ccsmode,
+                    dsamode,
+                    mlmode
                 });
                 const userres = await newUser.save();
                 console.log(userres);
@@ -182,7 +188,10 @@ const successRazorPay = async (req, res) => {
                         razorpaySignature
                     },
                     ambasadorId,
-                    referalCode
+                    referalCode,
+                    ccsmode,
+                    dsamode,
+                    mlmode
                 });
 
                 const userres = await newUser.save();
@@ -221,10 +230,21 @@ const successRazorPay = async (req, res) => {
     }
 }
 
+// Create User Checkout Session
+const sendEmailTest = async (req, res) => {
+    try {
+        sendEmailResend("Lucky sharma", "luckysharma30113@gmail.com", "Data Structure & Algorithm with Placement Guidance, Rs. 4,499", "666fbaef36ce1fe53fe2ac88");
+        
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
+}
+
 module.exports = {
     createCheckoutSession,
     checkSubscriptionStatus,
     alertSeen,
     createRazorpayOrder,
-    successRazorPay
+    successRazorPay,
+    sendEmailTest
 }

@@ -37,6 +37,18 @@ const registeredUserSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  ccsmode: {
+    type: String,
+    required: false,
+  },
+  dsamode: {
+    type: String,
+    required: false,
+  },
+  mlmode: {
+    type: String,
+    required: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

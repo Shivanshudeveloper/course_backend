@@ -11,6 +11,8 @@ router.post('/createcheckoutsession', paymentController.createCheckoutSession);
 router.get('/checkstatus/:customerId', paymentController.checkSubscriptionStatus);
 router.put('/alertseen/:customerId', paymentController.alertSeen);
 
+router.get('/testemailsend', paymentController.sendEmailTest);
+
 
 // Razor Pay Payment
 router.post('/order', paymentController.createRazorpayOrder);

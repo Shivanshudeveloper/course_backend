@@ -22,6 +22,7 @@ const projectTimelineRoutes = require("./routes/projectTimelineRoutes");
 
 const referalCodeRoute = require("./routes/referal-code");
 const ambassadorRoute = require("./routes/ambassador-route");
+const registeredUsersRoute = require("./routes/registered-users");
 
 
 
@@ -54,6 +55,7 @@ app.use(express.urlencoded({ limit: "50mb" }));
 app.use("/api/v1/main", express.json({ limit: "50mb" }), mainRoutes);
 app.use("/api/v1/main/referal", express.json({ limit: "50mb" }), referalCodeRoute);
 app.use("/api/v1/main/ambassador", express.json({ limit: "50mb" }), ambassadorRoute);
+app.use("/api/v1/main/registeredusers", express.json({ limit: "50mb" }), registeredUsersRoute);
 
 
 
