@@ -233,7 +233,7 @@ const successRazorPay = async (req, res) => {
 // Create User Checkout Session
 const sendEmailTest = async (req, res) => {
     try {
-        sendEmailResend("Lucky sharma", "luckysharma30113@gmail.com", "Data Structure & Algorithm with Placement Guidance, Rs. 4,499", "666fbaef36ce1fe53fe2ac88");
+        sendEmailResend("Vivek Singh", "Viveksigh2004@gmail.com", "Machine Learning with Python: From Basics to Advanced, Rs. 4,499", "66857f997f296c2378001050");
         
     } catch (error) {
         res.status(400).send({ error: error.message });

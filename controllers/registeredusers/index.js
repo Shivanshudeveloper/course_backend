@@ -21,12 +21,21 @@ const getAllUsers = async (req, res) => {
             })
             .catch((err) => console.log(err));
     }
+}
 
+// Get All Users
+const getAllUserDataCertificate = async (req, res) => {
+    const { email } = req.params; // Use organisationId
+    console.log(email);
 
-
-    
+    RegisteredUsers_Model.findOne({ email }).sort({ createdAt: -1 })
+        .then((data) => {
+            res.status(200).json({ status: true, data });
+        })
+        .catch((err) => console.log(err));
 }
 
 module.exports = {
-    getAllUsers
+    getAllUsers,
+    getAllUserDataCertificate
 }

@@ -8,5 +8,6 @@ const registeredUsersController = require("../controllers/registeredusers");
 
 
 router.get("/getallusersregistered/:isadmin", registeredUsersController.getAllUsers);
+router.get("/getuserdatacertificate/:email", registeredUsersController.getAllUserDataCertificate);
 
 module.exports = router;
