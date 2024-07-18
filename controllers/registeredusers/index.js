@@ -25,7 +25,8 @@ const getAllUsers = async (req, res) => {
 
 // Get All Users
 const getAllUserDataCertificate = async (req, res) => {
-    const { email } = req.params; // Use organisationId
+    let { email } = req.params; // Use organisationId
+    email = email.toLowerCase(); // Convert email to lowercase
     console.log(email);
 
     RegisteredUsers_Model.findOne({ email }).sort({ createdAt: -1 })
