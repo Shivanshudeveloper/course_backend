@@ -169,7 +169,7 @@ const successRazorPay = async (req, res) => {
                 });
                 const userres = await newUser.save();
                 console.log(userres);
-                sendEmailResend(fullName, email, packagePlan, userres?._id);
+                // sendEmailResend(fullName, email, packagePlan, userres?._id);
                 return res.status(200).json({ status: true, msg: 'success', orderId: razorpayOrderId, paymentId: razorpayPaymentId, userId: userres?._id });
             } else {
                 const ambPayout = await Ambassador_model.findOne({ pubicId: ambasadorId });
@@ -217,8 +217,6 @@ const successRazorPay = async (req, res) => {
                 const ambpayout = await newAmbasadorPayout.save();
 
                 console.log(ambpayout);
-
-                sendEmailResend(fullName, email, packagePlan, userres?._id);
 
                 return res.status(200).json({ status: true, msg: 'success', orderId: razorpayOrderId, paymentId: razorpayPaymentId, userId: userres?._id });
             }
